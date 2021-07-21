@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './home.less'
 import {
     NavLink
 } from "react-router-dom";
@@ -11,8 +12,8 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
-                1111111111
+            <div className="home">
+                欢迎使用后台管理系统
             </div>
         )
     }

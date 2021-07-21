@@ -43,7 +43,7 @@ class Login extends Component {
           // 保存user
           const user = result.data
           memoryUtils.user = user // 保存在内存中
-          storageUtils.saveUser(user) // 保存到local中
+          storageUtils.saverUser(user) // 保存到local中
 
           // 跳转到管理界面 (不需要再回退回到登陆)
           this.props.history.replace('/')
