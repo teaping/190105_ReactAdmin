@@ -26,6 +26,27 @@ export const reqUpdateCategory = ({categoryId, categoryName}) =>
         categoryName
     }, 'POST')
 
+// 获取商品分页列表
+export const reqProducts = (pageNum, pageSize) => ajax(  '/manage/product/list', {pageNum, pageSize})
+
+
+/*
+搜索商品分页列表 (根据商品名称/商品描述)
+searchType: 搜索的类型, productName/productDesc
+ */
+export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) => ajax('/manage/product/search', {
+    pageNum,
+    pageSize,
+    [searchType]: searchName,
+})
+
+// 获取一个分类
+export const reqCategory = (categoryId) => ajax( '/manage/category/info', {categoryId})
+
+// 更新商品的状态(上架/下架)
+export const reqUpdateStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST')
+
+
 /*josnp请求的接口函数*/
 /*export const reqWeather = () => {
     return new Promise((resolve , reject) => {
