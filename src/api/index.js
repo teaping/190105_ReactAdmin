@@ -47,6 +47,15 @@ export const reqCategory = (categoryId) => ajax( '/manage/category/info', {categ
 export const reqUpdateStatus = (productId, status) => ajax('/manage/product/updateStatus', {productId, status}, 'POST')
 
 
+// 删除指定名称的图片
+export const reqDeleteImg = (name) => ajax('/manage/img/delete', {name}, 'POST')
+
+// 添加/修改商品
+export const reqAddOrUpdateProduct = (product) => ajax('/manage/product/' + ( product._id?'update':'add'), product, 'POST')
+// 修改商品
+// export const reqUpdateProduct = (product) => ajax(BASE + '/manage/product/update', product, 'POST')
+
+
 /*josnp请求的接口函数*/
 /*export const reqWeather = () => {
     return new Promise((resolve , reject) => {

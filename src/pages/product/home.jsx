@@ -39,7 +39,7 @@ export default class ProductHome extends Component {
             },
             {
                 title: '商品描述',
-                dataIndex: 'desc',
+                dataIndex: 'desc',  // 68
             },
             {
                 title: '价格',
