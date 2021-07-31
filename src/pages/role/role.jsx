@@ -6,6 +6,7 @@ import {formateDate} from "../../utils/dateUtils";
 import AddForm from "./add-form";
 import AuthForm from "./auth-form";
 import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from "../../utils/storageUtils";
 
 // 角色路由
 class Role extends Component {
@@ -108,11 +109,20 @@ class Role extends Component {
         const rules = await reqUpdateRole(role)
         if (rules.status === 0 ) {
             this.setState({isShowAuth: false})
-            message.success('设置角色权限成功')
-            // this.getRoles()
-            this.setState({
-                roles: [...this.state.roles]
-            })
+            // 如果设置是自己强制退出
+            if (role._id === memoryUtils.user.role_id) {
+                memoryUtils.user={}
+                storageUtils.removerUser()
+                this.props.history.repalce('/login')
+                message.success('当前用户角色权限修改了，请重新登录')
+            }else {
+
+                message.success('设置角色权限成功')
+                // this.getRoles()
+                this.setState({
+                    roles: [...this.state.roles]
+                })
+            }
         }else {
             message.success('设置角色权限失败')
         }
@@ -149,7 +159,13 @@ class Role extends Component {
                         pagination={{defaultCurrent: PAGE_SIZE}}
                         dataSource={roles}
                         columns={this.columns} bordered
-                        rowSelection={{type: 'radio', selectedRowKeys: [role._id]}}
+                        rowSelection={{
+                            type: 'radio',
+                            selectedRowKeys: [role._id],
+                            onSelect: (role) => {
+                                this.setState({role})
+                            }
+                        }}
                         onRow={this.onRow}/>
                 <Modal title="添加角色"
                        visible={isShowAdd}
